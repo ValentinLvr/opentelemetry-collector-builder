@@ -1,0 +1,23 @@
+dist:
+  name: otelcol-basic
+  description: Custom OTel Collector basic distribution
+  output_path: ./otelcol-basic
+  otelcol_version: 0.94.0
+
+receivers:
+  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.94.0
+ 
+exporters:
+  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.94.0
+  - gomod: go.opentelemetry.io/collector/exporter/loggingexporter v0.94.0
+  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.94.0
+  - gomod: go.opentelemetry.io/collector/exporter/otlphttpexporter v0.94.0
+ 
+extensions:
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.94.0
+ 
+processors:
+  - gomod: go.opentelemetry.io/collector/processor/batchprocessor v0.94.0
+  - gomod: go.opentelemetry.io/collector/processor/memorylimiterprocessor v0.94.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.94.0
+  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.94.0
