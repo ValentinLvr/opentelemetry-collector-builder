@@ -1,4 +1,4 @@
-FROM ghcr.io/martinjt/ocb-config-builder:latest as build
+FROM ghcr.io/martinjt/ocb-config-builder:nightly as build
 COPY config.yaml /config.yaml
 # Generate the manifest builder from the otel config file
 RUN ocbconfigbuilder
