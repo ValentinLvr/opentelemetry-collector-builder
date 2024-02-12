@@ -42,9 +42,7 @@ jobs:
           tags: |
             type=semver,priority=9000,pattern={{version}}
             type=semver,priority=5000,pattern={{major}}.{{minor}}
-            type=ref,priority=1000,event=branch,value=br-{{branch}}-{{sha}}
-            type=raw,priority=700,value=br-{{branch}}-{{sha}}
-            type=sha,priority=200,value={{sha}}
+            type=raw,priority=1000,value=br-{{branch}}-{{sha}}
           flavor: |
             latest=false
 
