@@ -24,7 +24,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/custom-otelcol
+            ghcr.io/ValentinLvr/custom-otelcol
           tags: |
             type=semver,priority=9000,pattern={{version}}
             type=semver,priority=5000,pattern={{major}}.{{minor}}
