@@ -5,10 +5,17 @@ on:
     branches:
       - '*'
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   DockerBuildPush:
     name: Docker Build & push
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -18,13 +25,20 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/ValentinLvr/custom-otelcol
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=semver,priority=9000,pattern={{version}}
             type=semver,priority=5000,pattern={{major}}.{{minor}}
@@ -33,13 +47,6 @@ jobs:
             type=sha,priority=200,value={{sha}}
           flavor: |
             latest=false
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
